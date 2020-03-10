@@ -2,7 +2,7 @@
 # Linked List hash table key/value pair
 # '''
 class LinkedPair:
-    def __init__(self, key, value):
+    def __init__(self, key, value): #initialize yo self gurlll 
         self.key = key
         self.value = value
         self.next = None
@@ -14,15 +14,12 @@ class HashTable:
     '''
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
-        self.storage = [None] * capacity
+        self.storage = [None] * capacity #emulating functionality by making use of python list
 
 
-    def _hash(self, key):
-        '''
-        Hash an arbitrary key and return an integer.
-
-        You may replace the Python hash with DJB2 as a stretch goal.
-        '''
+    def _hash(self, key):  #underscore means no touchy dont use outside of the class
+        
+       
         return hash(key)
 
 
@@ -40,7 +37,7 @@ class HashTable:
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
         '''
-        return self._hash(key) % self.capacity
+        return self._hash(key) % self.capacity #grabs index 
 
 
     def insert(self, key, value):
@@ -53,7 +50,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+
+        if self.storage[index] is not None:
+            print("Error key in use")
+        else:
+            self.storage[key] = value
 
 
 
@@ -65,7 +67,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+
+        if self.storage[index] is not None:
+            self.storage[index] = None
+        else:
+            print("Bewareeeee Key is not found ")
 
 
     def retrieve(self, key):
@@ -76,7 +83,9 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+
+        return self.storage[index]
 
 
     def resize(self):
@@ -86,8 +95,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        old_storage = self.storage.copy()
+        self.capacity = self.capacity * 2
+        self.storage = [None] * self.capacity
 
+        for bucket_item in old_storage:
+            self.insert(bucket_item.key, bucket_item.value)
+     #places everything in new keys
 
 
 if __name__ == "__main__":

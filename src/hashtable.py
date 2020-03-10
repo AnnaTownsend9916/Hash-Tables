@@ -1,3 +1,5 @@
+import hashlib
+
 # '''
 # Linked List hash table key/value pair
 # '''
@@ -20,7 +22,7 @@ class HashTable:
     def _hash(self, key):  #underscore means no touchy dont use outside of the class
         
        
-        return hash(key)
+        return hashlib.sha256(key.encode())
 
 
     def _hash_djb2(self, key):
